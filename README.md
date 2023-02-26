@@ -38,7 +38,7 @@ Run :
 docker compose up
 ```
 
-## Usage with source node
+## Usage with source code
 Fill the `.env` file  
 Execute :
 ```shell
