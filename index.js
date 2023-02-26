@@ -1,4 +1,5 @@
 const axios = require('axios');
+require('dotenv').config();
 
 let discordToken = process.env.DISCORD_TOKEN
 let discordChannel = process.env.DISCORD_CHANNEL
