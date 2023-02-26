@@ -14,7 +14,7 @@ ChatGPT: On dirait qu'il a pas envie d'être filmé !
 ## Disclaimer
 This is for **educational** purposes.
 
-This script will connect to the Discord API with your own account and will send message to the channel you selected.
+This script will connect to the Discord API with your own account and will send messages to the channel you selected.
 
 You are **responsible** for using this technology and this script. In every usage, you should **inform
 your friends** / persons on the channel that they are speeking to chatGPT and not directly to you.
