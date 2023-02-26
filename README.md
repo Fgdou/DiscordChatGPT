@@ -2,7 +2,7 @@
 Answer to your friends with chatGPT on discord
 
 ## Config
-Fill the .env file  
+Fill the `.env` file  
 Example :
 ```env
 DISCORD_TOKEN=NDH************************************cgJ-DuPFzU
