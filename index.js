@@ -6,8 +6,8 @@ let discordChannel = process.env.DISCORD_CHANNEL
 let gpt3Token = process.env.OPENAI_TOKEN
 let interval = 3000
 let discordCountMessages = 15
-let discordPseudo = process.env.DISCORD_PSEUDO
-let gpt3Prompt = `Repond a la place de ${discordPseudo} a la derniere ligne dans cette conversation :`
+let discordPseudo = null
+let gpt3Prompt = `Repond a la place de XXXX a la derniere ligne dans cette conversation :`
 
 let gpt3Address = 'https://api.openai.com/v1'
 let gpt3Model = 'text-davinci-003'
@@ -76,6 +76,15 @@ async function sendDiscordMessage(message){
 }
 
 /**
+ * Return the username of the token account
+ * @returns {Promise<string|T>}
+ */
+async function getDiscordUsername(){
+    let res = await axios.get(`${discordUrl}/users/@me`, {headers: {Authorization: discordToken}})
+    return res.data.username
+}
+
+/**
  * Get openai answer to the lists of messages
  * @param message
  * @returns {Promise<*>}
@@ -83,7 +92,7 @@ async function sendDiscordMessage(message){
 async function getOpenAIAnswer(message){
     let url = `${gpt3Address}/completions`
 
-    message = `${gpt3Prompt} ${message}`
+    message = `${gpt3Prompt.replace('XXXX', discordPseudo)} ${message}`
 
     let data = (await axios.post(url, {
         model: gpt3Model,
@@ -113,12 +122,19 @@ async function check(){
 
         console.log(`ChatGPT: ${answer}`)
 
-        await sendDiscordMessage(answer.replace('Fgdou:', ''))
+        await sendDiscordMessage(answer.replace(`${discordPseudo}:`, ''))
     }catch(e){
-        console.error(e)
+        console.error(e.message)
     }
 }
 
 (async () => {
-    setInterval(check, interval)
+    try{
+        discordPseudo = await getDiscordUsername()
+        console.log(`Discord username: ${discordPseudo}`)
+
+        setInterval(check, interval)
+    }catch (e){
+        console.error(`Error while connecting to discord : ${e.message}`)
+    }
 })()
