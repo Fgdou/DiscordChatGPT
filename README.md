@@ -1,5 +1,6 @@
 # ChatGPT on Discord
-Answer to your friends with chatGPT on discord
+A script to answer to your friends with chatGPT on discord on private discussions or
+servers.
 
 ## Config
 Fill the `.env` file  
